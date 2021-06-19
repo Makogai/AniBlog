@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->softDeletes();
             $table->foreignId('created_user_id')->constrained('users')->nullable()->onDelee('set null');
+            $table->string('color')->nullable()->default('#899091');
 
         });
     }

@@ -39,6 +39,7 @@ class CategoryRequest extends FormRequest
         return [
 
             'name' => 'required|max:100',
+            'color' => 'nullable|max:7',
 
         ];
     }
@@ -46,6 +47,7 @@ class CategoryRequest extends FormRequest
     public function updateRules(){
         return [
             'name' => 'required|max:100',
+            'color' => 'nullable|max:7',
         ];
     }
 

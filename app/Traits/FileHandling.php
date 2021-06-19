@@ -13,7 +13,7 @@ trait FileHandling {
 
             $destinationPath = 'public/images/' . $directory . '/';
             $fileName = $file->getClientOriginalName();
-            $filenameCover = time() . $fileName;
+            $filenameCover = time() . "post";
             // $file->move(public_path() . $destinationPath, $filenameCover);
             // Storage::disk('local')->put($filenameCover, $destinationPath);
             Storage::putFileAs($destinationPath,$file, $filenameCover);

@@ -18,7 +18,8 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('content');
-            $table->string('post_image')->nullable()->default('images/profile_ph.png');
+            $table->string('post_image')->nullable()->default('images/post_ph.jpg');
+            $table->string('featured')->nullable()->default(0);
             // $table->unsignedBigInteger('category_id')->nullable();
 
             // $table->foreign('category_id')->references('id')->on('categories')->nullOnDelete();

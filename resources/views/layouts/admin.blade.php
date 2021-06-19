@@ -36,7 +36,8 @@
   <link rel="stylesheet" href="{{ asset("https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css") }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" integrity="sha256-jKV9n9bkk/CTP8zbtEtnKaKf+ehRovOYeKoyfthwbC8=" crossorigin="anonymous" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js" integrity="sha256-CgvH7sz3tHhkiVKh05kSUgG97YtzYNnWt6OXcmYzqHY=" crossorigin="anonymous"></script>
-
+          <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="{{asset("adminlte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css")}}">
 <style>
     .btn-main{
         color: #fff!important;
@@ -63,7 +64,7 @@ background: linear-gradient(90deg, rgba(226,0,85,1) 0%, rgba(169,1,1,1) 100%);
 background: linear-gradient(90deg, rgba(1,169,105,1) 0%, rgba(2,169,1,1) 100%);
     }
     .bg-yellownew{
-        color: #fff!important;
+        color: rgb(31, 31, 31)!important;
         background: rgb(225,162,0);
 background: linear-gradient(90deg, rgba(225,162,0,1) 0%, rgba(232,255,58,1) 100%);
     }
@@ -239,6 +240,7 @@ background: linear-gradient(90deg, rgba(1,169,105,1) 0%, rgba(2,169,1,1) 100%);
 <script src="{{ asset('adminlte/ajaxFormSubmit.js') }}"></script>
 <script src="{{ asset('adminlte/delete.js') }}"></script>
 <script src="{{ asset('adminlte/ajaxFetch.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 @yield('script')
 </body>

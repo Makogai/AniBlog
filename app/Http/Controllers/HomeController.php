@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FeaturedPosts;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $featured = FeaturedPosts::with('post')->get();
+
+        $data = [
+            "featured" => $featured,
+        ];
+
+
+        return view('main.index')->with($data);
     }
 }

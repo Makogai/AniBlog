@@ -84,7 +84,7 @@ vertical-align: middle;
                                             <td class="text-center">
                                                 @isset($object->categories)
                                                 @foreach($object->categories as $category)
-                                                   {{ ($category->category) ? $category->category->name : '' }} <br>
+                                                   {{ ($category->category) ? $category->category->name : '' }} <i class="fas fa-square" style="color: {{$category->category->color}};"></i> <br>
                                                 @endforeach
                                             @endisset
                                             </td>

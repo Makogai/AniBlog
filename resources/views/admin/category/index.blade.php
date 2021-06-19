@@ -45,7 +45,7 @@
                                         <tr>
                                             <td class="text-center">{{ $object->id }}</td>
 
-                                            <td class="text-center">{{ $object->name }}</td>
+                                            <td class="text-center" >{{ $object->name }} <i class="fas fa-square" style="color: {{$object->color}};"></i></td>
 
                                             <td class="text-center">
                                                 <form class="d-inline-block">
@@ -98,11 +98,18 @@ $(".edit").click(function(){
 
         function showData(returndata){
             $('#name').val(returndata.name );
+            $('#color').val(returndata.color );
+            $('.my-colorpicker2 .fa-square').css('color', returndata.color);
             $('#myModal').modal('show');
 
 
         }
+//color picker with addon
+$('.my-colorpicker2').colorpicker()
 
+$('.my-colorpicker2').on('colorpickerChange', function(event) {
+  $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+});
   </script>
 @endsection
 
@@ -123,6 +130,22 @@ $(".edit").click(function(){
                             <label class="col-form-label" for="name">Name *</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Category name" >
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="color">Color</label>
+
+                            <div class="input-group my-colorpicker2">
+                              <input type="text"  id="color" name="color" class="form-control">
+
+                              <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-square"></i></span>
+                              </div>
+                            </div>
+                            <!-- /.input group -->
+                          </div>
                     </div>
                 </div>
 

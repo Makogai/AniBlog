@@ -5,6 +5,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FeaturedPostsController;
+use App\Models\FeaturedPosts;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +20,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin/'], function () {
     //dashboard
@@ -64,6 +64,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin/'], function () {
     Route::put('/posts-categories-relations/restore/{id}', [PostsCategoriesRelationController::class,'restore'])->name('admin/posts-categories-relations/restore');
     Route::post('/posts-categories-relations/store', [PostsCategoriesRelationController::class,'store'])->name('admin/posts-categories-relations/store');
     Route::post('/posts-categories-relations/{object}/edit', [PostsCategoriesRelationController::class,'edit'])->name('admin/posts-categories-relations/edit');
+
+    //PosCategoryRelation
+    Route::get('/featured', [FeaturedPostsController::class,'index'])->name('admin/featured');
+    Route::get('/posts-featured/{id}', [FeaturedPostsController::class,'getOne'])->name('admin/posts-featured/fetch');
+    Route::delete('/posts-featured/delete/{id}', [FeaturedPostsController::class,'destroy'])->name('admin/posts-featured/delete');
+    Route::post('/posts-featured/store', [FeaturedPostsController::class,'store'])->name('admin/posts-featured/store');
+    Route::post('/posts-featured/{object}/edit', [FeaturedPostsController::class,'edit'])->name('admin/posts-featured/edit');
 
 
 

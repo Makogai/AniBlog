@@ -50,7 +50,7 @@
             <div class="icon">
               <i class="ion ion-bookmark"></i>
             </div>
-            <a href="{{ route('admin/category') }}" class="small-box-footer text-white">All categories <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin/category') }}" class="small-box-footer" style="color: rgb(31, 31, 31);">All categories <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

@@ -15,15 +15,17 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     function index(){
-        $user = Auth::user();
+        $user = Auth::user()->name;
+        $user_posts = Post::where('create_user_id', Auth::user()->id)->count();
 
-        $user_posts = $user->post()->count();
+        // $user_posts = $user->post()->count();
         //$top_category = Category::withCount('post')->count();
 
         $top_category = DB::table('posts')
-            ->join('categories', 'posts.category_id', '=', 'categories.id')
-            ->join('users', 'users.id','=','posts.user_id')
-            ->where('posts.user_id', '=', Auth::user()->id)
+            ->join('posts_categories_relations', 'posts.id', '=', 'posts_categories_relations.post_id')
+            ->join('users', 'users.id','=','posts_categories_relations.create_user_id')
+            ->join('categories', 'categories.id','=','posts_categories_relations.category_id')
+            ->where('posts.create_user_id', '=', Auth::user()->id)
             ->select(DB::raw('count(*) as repetition, categories.name'))
             ->groupBy('categories.name')
             ->orderBy('repetition', 'desc')->take(1)

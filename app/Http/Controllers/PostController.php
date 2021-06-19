@@ -23,7 +23,7 @@ class PostController extends Controller
                 $query->select(['id', 'post_id', 'category_id','create_user_id', 'created_at', 'updated_at'])
                     ->with([
                         'category' => function ($query) {
-                            $query->select(['id', 'name','created_user_id','created_at', 'updated_at']);
+                            $query->select(['id', 'name','color','created_user_id','created_at', 'updated_at']);
                         }
                     ]);
             }
@@ -92,7 +92,7 @@ class PostController extends Controller
                 $query->select(['id', 'post_id', 'category_id','create_user_id', 'created_at', 'updated_at'])
                     ->with([
                         'category' => function ($query) {
-                            $query->select(['id', 'name','created_user_id','created_at', 'updated_at']);
+                            $query->select(['id', 'name','color','created_user_id','created_at', 'updated_at']);
                         }
                     ]);
             }

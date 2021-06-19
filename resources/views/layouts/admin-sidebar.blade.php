@@ -20,11 +20,11 @@ background: linear-gradient(90deg, rgba(0,131,226,1) 0%, rgba(1,169,156,1) 100%)
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+        <div class="image py-1">
           <img src="{{ Auth::user()->image_path }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="{{ route('admin/user')  }}" class="d-block {{strpos(Route::current()->getName(), 'admin/user' ) !== false ? "active" : ""}}">{{ Auth::user()->name }}</a>
+          <a href="{{ route('admin/user')  }}" class="d-block px-2 py-1 {{strpos(Route::current()->getName(), 'admin/user' ) !== false ? "active" : ""}}">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -61,7 +61,14 @@ background: linear-gradient(90deg, rgba(0,131,226,1) 0%, rgba(1,169,156,1) 100%)
               </p>
             </a>
           </li>
-          <br>
+          <li class="nav-item">
+            <a href="{{ route("admin/featured") }}" class="nav-link {{strpos(Route::current()->getName(), 'featured' ) !== false ? "active" : ""}}">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Featured Posts
+              </p>
+            </a>
+          </li>
 
 
         </ul>
