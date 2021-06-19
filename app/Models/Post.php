@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class Post extends Model
 {
 
@@ -18,10 +19,10 @@ class Post extends Model
     protected $guarded = [];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'create_user_id');
     }
-    public function category(){
-        return $this->belongsTo(Category::class);
+    public function categories(){
+        return $this->hasMany(PostsCategoriesRelation::class);
     }
 
     public function getPostImageAttribute($value){
@@ -33,4 +34,6 @@ class Post extends Model
         if($value)
             $this->attributes["post_image"] = is_string($value) ? $value : User::storeFile($value, "posts");
     }
+
+
 }

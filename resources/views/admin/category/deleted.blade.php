@@ -1,10 +1,7 @@
 @extends('layouts.admin')
+@section('header', 'Deleted Categories')
 
 @section('content')
-
-<div class="modal-header">
-    <h4 class="modal-title">Deleted Categories</h4>
-</div>
 
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -71,7 +68,7 @@
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
-
+</script>
 @endsection
 
 

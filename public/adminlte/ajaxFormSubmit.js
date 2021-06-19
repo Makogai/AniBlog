@@ -1,4 +1,5 @@
 $(".submitForm").submit(function(event){
+    let msg = ($(".submitForm").data('success-msg')) ? $(".submitForm").data('success-msg') : "Successfully updated Your data!";
     event.preventDefault();
     $(".submitFormBtn").attr("disabled", true);
     $(".formSpinner").show();
@@ -17,7 +18,7 @@ $(".submitForm").submit(function(event){
           $(".formSpinner").hide();
           $(".submitFormBtn").attr("disabled", false);
           if(xhr.status == 200 &&  statusText == 'success'){
-            swal("Success!", "Successfully updated Your data!", "success").then((value) => {
+            swal("Success!", msg, "success").then((value) => {
               $("form")[0].reset();
               window.location.reload(true);
             });

@@ -1,7 +1,8 @@
 $(".delBtn").on("click", function(event) {
+    let warning = $(".delBtn").data('warning');
     swal({
         title: "Are You sure?",
-        text: "Are You sure You want to delete this entry?",
+        text: warning,
         icon: "warning",
         dangerMode: true,
         buttons: ["Cancel", "Delete"],

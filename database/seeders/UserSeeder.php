@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'name' => "Makogai",
             'email' => 'ma@re.me',
             'password' => Hash::make('mare'),
-            'image_path' => "/images/users/user_ph.png",
+            'image_path' => "/images/profile_ph.png",
         ]);
     }
 }

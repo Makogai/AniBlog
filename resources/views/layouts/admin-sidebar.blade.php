@@ -1,3 +1,14 @@
+<style>
+    a.active{
+        color: #fff!important;
+    background: rgb(0,131,226);
+background: linear-gradient(90deg, rgba(0,131,226,1) 0%, rgba(1,169,156,1) 100%);
+    /* border-color: #4183D7; */
+    border-color: rgb(var(--color-foreground));
+    transition: 0.2s ease all;
+    }
+
+</style>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -46,23 +57,12 @@
             <a href="{{ route("admin/category") }}" class="nav-link {{strpos(Route::current()->getName(), 'category' ) !== false ? "active" : ""}}">
               <i class="nav-icon far fa-bookmark"></i>
               <p>
-                Category
+                Categories
               </p>
             </a>
           </li>
           <br>
-          <li class="nav-item"">
-              <form action="{{ route("logout") }}" method="post">
-                @csrf
-                <button href="" style="box-shadow: 0; border: none;" class="nav-link">
-                  <i class="nav-icon fas fa-sign-out-alt"></i>
-                  <p>
-                    Logout
-                  </p>
-                </button>
 
-            </form>
-          </li>
 
         </ul>
       </nav>

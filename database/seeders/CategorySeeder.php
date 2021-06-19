@@ -16,6 +16,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $name = [
+            'None',
             'Anime',
             'Manga',
         ];
@@ -23,6 +24,7 @@ class CategorySeeder extends Seeder
         for($i = 0; $i<count($name); $i++){
             Category::create([
                 'name' => $name[$i],
+                'created_user_id' => 1
             ]);
         }
     }

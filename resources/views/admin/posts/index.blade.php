@@ -1,35 +1,39 @@
 @extends('layouts.admin')
 @extends('layouts.modal')
 
+@section('header', 'Posts')
 @section('content')
 
-<div class="modal-header">
-    <h4 class="modal-title">Posts</h4>
-</div>
 
 <style>
 
 
 /* Important part */
-.modal-dialog{
-    max-width: 60%;
+/* .modal-dialog{
+    width: 60%
     overflow:visible;
-}
-.modal-body{
+} */
+/* .modal-body{
     overflow: visible;
 }
 .swal-overlay{
     z-index: 1000000000!important;
-}
- td {
-max-width: 20px; /* or whatever height you need to make them all consistent */
-vertical-align: middle;
-}
-/* .table td, .table th{
-    vertical-align: middle;
-    max-height: 40px;
-    overflow: hidden;
+ }
+ select{
+     z-index: 10000000000000000000!important;
+ } */
+ /* .modal {
+  overflow-y:auto;
 } */
+
+.note-group-select-from-files { display: none; }
+/* td {
+max-width: 20px;
+vertical-align: middle;
+} */
+.table td, .table th{
+    vertical-align: middle;
+}
 
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -48,8 +52,8 @@ vertical-align: middle;
                                     <h5 class="card-title mt-1 mb-1">Posts table</h5>
                                 </div>
                                 <div class="col-6">
-                                    <a id="add" class="btn btn-sm btn-info float-right ml-3" href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
-                                        Add post
+                                    <a id="add" class="btn btn-sm btn-main float-right ml-3" href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
+                                       <i class="fas fa-plus"></i> Add post
                                     </a>
                                 </div>
                             </div>
@@ -62,7 +66,7 @@ vertical-align: middle;
                                     <tr>
                                         <th class="text-center">Title</th>
                                         <th class="text-center">Content </th>
-                                        <th class="text-center">Category</th>
+                                        <th class="text-center">Categories</th>
                                         <th class="text-center">User</th>
                                         <th class="text-center">Image</th>
                                         <th class="text-center">Actions</th>
@@ -73,11 +77,17 @@ vertical-align: middle;
                                         <tr>
                                             <td class="text-center">{{ $object->title }}</td>
                                             <td class="text-center">
-                                                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick="contentFunc({{$object->id}})">
+                                                <button class="btn btn-main" data-toggle="modal" data-target="#exampleModalCenter" onClick="contentFunc({{$object->id}})">
                                                     View content
                                                   </button>
                                             </td>
-                                            <td class="text-center">{{ $object->category->name }}</td>
+                                            <td class="text-center">
+                                                @isset($object->categories)
+                                                @foreach($object->categories as $category)
+                                                   {{ ($category->category) ? $category->category->name : '' }} <br>
+                                                @endforeach
+                                            @endisset
+                                            </td>
                                             <td class="text-center">{{ $object->user->name }}</td>
                                             <td class="text-center">
                                                 <img class="rounded" src="{{ $object->post_image}}" width="60">
@@ -85,13 +95,13 @@ vertical-align: middle;
                                             <td class="text-center">
                                                 <form class="d-inline-block">
                                                     <a href="javascript:void(0)" data-toggle="modal" data-id="{{$object->id}}" data-route="posts/{{$object->id}}"
-                                                       data-target="#myModal" class="edit show-object-data btn btn-sm btn-success">Edit</a>
+                                                       data-target="#myModal" class="edit show-object-data btn btn-sm btn-main-green"><i class="fas fa-edit"></i> Edit</a>
                                                 </form>
 
                                                 <form class="deleteForm d-inline-block" action="{{ route('admin/posts/delete', $object->id) }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="button" class="delBtn btn btn-sm btn-danger">Delete</button>
+                                                    <button type="button" class="delBtn btn btn-sm btn-main-red" data-warning="Once deleted, you can always restore it in Deleted Posts."><i class="fas fa-trash-alt"></i> Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -99,7 +109,7 @@ vertical-align: middle;
                                     </tbody>
                                 </table>
                             </div>
-                            <a class="btn btn-sm btn-warning" href="{{ route('admin/posts/deleted') }}">Deleted posts</a>
+                            <a class="btn btn-sm btn-main-yellow" href="{{ route('admin/posts/deleted') }}">Deleted posts</a>
                         </div>
                     </div>
                 </div>
@@ -134,6 +144,8 @@ vertical-align: middle;
 
 @section('script')
 <script>
+
+var s2 = $('#category_id').select2();
     function contentFunc(returndata){
     // loader.removeClass("invisivle");
         var jqxhr = $.getJSON( "posts/"+returndata, function() {
@@ -175,9 +187,13 @@ $(".edit").click(function(){
             $('#imageHolder').attr({ 'src': returndata.post_image });
             $('#title').val(returndata.title );
             $('#summernote').summernote('code', returndata.content,{dialogsInBody: true});
-            $('#category_id').val(returndata.category_id );
             $('#myModal').modal('show');
-
+            let vals = [];
+            returndata.categories.forEach((element) => {
+            $("#category_id option[value='" + element.category_id + "']").prop("selected", true);
+            vals.push(element.category_id);
+        });
+        s2.val(vals).trigger("change");
 
         }
         var loadFile = function(event) {
@@ -187,30 +203,40 @@ $(".edit").click(function(){
       URL.revokeObjectURL(output.src) // free memory
     }
   };
-  $(document).on("show.bs.modal", '.modal', function (event) {
-    console.log("Global show.bs.modal fire");
-    var zIndex = 100000 + (10 * $(".modal:visible").length);
-    $(this).css("z-index", zIndex);
-    setTimeout(function () {
-        $(".modal-backdrop").not(".modal-stack").first().css("z-index", zIndex - 1).addClass("modal-stack");
-    }, 0);
-}).on("hidden.bs.modal", '.modal', function (event) {
-    console.log("Global hidden.bs.modal fire");
-    $(".modal:visible").length && $("body").addClass("modal-open");
+//   $(document).on("show.bs.modal", '.modal', function (event) {
+//     console.log("Global show.bs.modal fire");
+//     var zIndex = 100000 + (10 * $(".modal:visible").length);
+//     $(this).css("z-index", zIndex);
+//     setTimeout(function () {
+//         $(".modal-backdrop").not(".modal-stack").first().css("z-index", zIndex - 1).addClass("modal-stack");
+//     }, 0);
+// }).on("hidden.bs.modal", '.modal', function (event) {
+//     console.log("Global hidden.bs.modal fire");
+//     $(".modal:visible").length && $("body").addClass("modal-open");
+// });
+// $(document).on('inserted.bs.tooltip', function (event) {
+//     console.log("Global show.bs.tooltip fire");
+//     var zIndex = 100000 + (10 * $(".modal:visible").length);
+//     var tooltipId = $(event.target).attr("aria-describedby");
+//     $("#" + tooltipId).css("z-index", zIndex);
+// });
+// $(document).on('inserted.bs.popover', function (event) {
+//     console.log("Global inserted.bs.popover fire");
+//     var zIndex = 100000 + (10 * $(".modal:visible").length);
+//     var popoverId = $(event.target).attr("aria-describedby");
+//     $("#" + popoverId).css("z-index", zIndex);
+// });
+$(document).ready(function () {
+
+$('.modal').on("hidden.bs.modal", function (e) { //fire on closing modal box
+       if ($('.modal:visible').length) { // check whether parent modal is opend after child modal close
+           $('body').addClass('modal-open'); // if open mean length is 1 then add a bootstrap css class to body of the page
+       }
+   });
 });
-$(document).on('inserted.bs.tooltip', function (event) {
-    console.log("Global show.bs.tooltip fire");
-    var zIndex = 100000 + (10 * $(".modal:visible").length);
-    var tooltipId = $(event.target).attr("aria-describedby");
-    $("#" + tooltipId).css("z-index", zIndex);
-});
-$(document).on('inserted.bs.popover', function (event) {
-    console.log("Global inserted.bs.popover fire");
-    var zIndex = 100000 + (10 * $(".modal:visible").length);
-    var popoverId = $(event.target).attr("aria-describedby");
-    $("#" + popoverId).css("z-index", zIndex);
-});
+
   </script>
+
 @endsection
 
 @section('modal-body')
@@ -247,7 +273,7 @@ $(document).on('inserted.bs.popover', function (event) {
                     <div class="col-12">
                         <div class="form-group">
                             <label class="col-form-label" for="category_id">Category *</label>
-                            <select class="form-control" id="category_id" name="category_id">
+                            <select  id="category_id" data-dropdown-css-class="select2-primary" data-placeholder="Select a Category" name="categories[]" multiple="multiple">
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach

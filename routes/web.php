@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin/'], function () {
 
     //User routes
     Route::get('user', [UserController::class, 'index'])->name("admin/user");
+    Route::get('users', [UserController::class, 'users'])->name("admin/users");
     Route::post('user/{object}/edit', [UserController::class, 'edit'])->name("user/edit");
     Route::post('user/store', [UserController::class, 'store'])->name("user/store");
     Route::get('user/{id}', [UserController::class, 'getOne'])->name("admin/user/fetch");
@@ -53,6 +54,17 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin/'], function () {
     Route::get('category/{id}', [CategoryController::class, 'getOne'])->name('admin/category/fetch');
     Route::delete('category/delete/{id}', [CategoryController::class, 'delete'])->name('admin/category/delete');
     Route::put('category/restore/{id}', [CategoryController::class, 'restore'])->name('admin/category/restore');
+
+
+    //PosCategoryRelation
+    Route::get('/posts-categories-relations', [PostsCategoriesRelationController::class,'index'])->name('admin/posts-categories-relations');
+    Route::get('/posts-categories-relations/deleted', [PostsCategoriesRelationController::class,'deleted'])->name('admin/posts-categories-relations/deleted');
+    Route::get('/posts-categories-relations/{id}', [PostsCategoriesRelationController::class,'getOne'])->name('admin/posts-categories-relations/fetch');
+    Route::delete('/posts-categories-relations/delete/{id}', [PostsCategoriesRelationController::class,'destroy'])->name('admin/posts-categories-relations/delete');
+    Route::put('/posts-categories-relations/restore/{id}', [PostsCategoriesRelationController::class,'restore'])->name('admin/posts-categories-relations/restore');
+    Route::post('/posts-categories-relations/store', [PostsCategoriesRelationController::class,'store'])->name('admin/posts-categories-relations/store');
+    Route::post('/posts-categories-relations/{object}/edit', [PostsCategoriesRelationController::class,'edit'])->name('admin/posts-categories-relations/edit');
+
 
 
 });

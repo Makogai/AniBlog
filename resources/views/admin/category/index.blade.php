@@ -23,8 +23,8 @@
                                     <h5 class="card-title mt-1 mb-1">Category table</h5>
                                 </div>
                                 <div class="col-6">
-                                    <a id="add" class="btn btn-sm btn-info float-right ml-3" href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
-                                        Add Category
+                                    <a id="add" class="btn btn-sm btn-main float-right ml-3" href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
+                                       <i class="fas fa-plus"></i> Add Category
                                     </a>
                                 </div>
                             </div>
@@ -50,13 +50,13 @@
                                             <td class="text-center">
                                                 <form class="d-inline-block">
                                                     <a href="javascript:void(0)" data-toggle="modal" data-id="{{$object->id}}" data-route="category/{{$object->id}}"
-                                                       data-target="#myModal" class="edit show-object-data btn btn-sm btn-success">Edit</a>
+                                                       data-target="#myModal" class="edit show-object-data btn btn-sm btn-main-green"><i class="fas fa-edit"></i> Edit</a>
                                                 </form>
 
                                                 <form class="deleteForm d-inline-block" action="{{ route('admin/category/delete', $object->id) }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="button" class="delBtn btn btn-sm btn-danger">Delete</button>
+                                                    <button type="button" class="delBtn catdel btn btn-sm btn-main-red" data-warning="Deleting this will set all posts with this category to None category. Afterwards, you'll have to manually restore it."><i class="fas fa-trash-alt"></i> Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -64,7 +64,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <a class="btn btn-sm btn-warning" href="{{ route('admin/category/deleted') }}">Deleted posts</a>
+                            <a class="btn btn-sm btn-main-yellow" href="{{ route('admin/category/deleted') }}">Deleted posts</a>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@ $(".edit").click(function(){
         <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
 
-    <form class="submitForm objectForm" action="{{ route('admin/category/store') }}">
+    <form class="submitForm objectForm" data-success-msg="Successfully added a new category!" action="{{ route('admin/category/store') }}">
         @csrf
         <div class="modal-body">
             <div class="container">
