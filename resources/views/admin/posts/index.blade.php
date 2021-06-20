@@ -186,6 +186,7 @@ $(".edit").click(function(){
         function showData(returndata){
             $('#imageHolder').attr({ 'src': returndata.post_image });
             $('#title').val(returndata.title );
+            $('#short_content').val(returndata.short_content );
             $('#summernote').summernote('code', returndata.content,{dialogsInBody: true});
             $('#myModal').modal('show');
             let vals = [];
@@ -266,6 +267,14 @@ $('.modal').on("hidden.bs.modal", function (e) { //fire on closing modal box
                             <label class="col-form-label" for="content">Content *</label>
                             {{-- <tetxarea class="form-control summernote" id="content" name="content" placeholder="Content" ></tetxarea> --}}
                             <textarea id="summernote" name="content"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="col-form-label" for="short_content">First sentence from content *</label>
+                            <input type="text" class="form-control" id="short_content" name="short_content" placeholder="First sentence from content" >
                         </div>
                     </div>
                 </div>

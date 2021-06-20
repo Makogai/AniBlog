@@ -18,10 +18,11 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('content');
+            $table->string('short_content');
             $table->string('post_image')->nullable()->default('images/post_ph.jpg');
             $table->string('featured')->nullable()->default(0);
             // $table->unsignedBigInteger('category_id')->nullable();
-
+            $table->string('slug');
             // $table->foreign('category_id')->references('id')->on('categories')->nullOnDelete();
             // $table->foreignId('category_id')->nullable()->constrained("categories")->onDelete('set null');
             // $table->unsignedBigInteger('user_id');

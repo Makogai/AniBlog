@@ -42,6 +42,7 @@ class PostRequest extends FormRequest
             // 'email' => 'required|email|unique',
             'post_image' => 'nullable|max:5000|mimes:jpeg,png,jpg,gif,svg',
             'content' => 'required|max:10000',
+            'short_content' => 'required|max:200',
             'categories' => 'nullable|array'
         ];
     }
@@ -52,6 +53,7 @@ class PostRequest extends FormRequest
             // 'email' => 'required|email|unique',
             'post_image' => 'nullable|max:5000|mimes:jpeg,png,jpg,gif,svg',
             'content' => 'required|max:10000',
+            'short_content' => 'required|max:200',
             'categories' => 'nullable|array'
         ];
     }

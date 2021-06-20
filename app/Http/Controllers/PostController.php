@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\PostsCategoriesRelation;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -38,6 +39,8 @@ class PostController extends Controller
     public function store(PostRequest $request){
         $data = $request->validated();
         $data["create_user_id"] = Auth::user()->id;
+        $slug = Str::slug($data['title'], '-');
+        $data['slug'] = $slug;
         if(isset($data["categories"])){
             $categories = $data["categories"];
             unset($data["categories"]);
@@ -56,7 +59,10 @@ class PostController extends Controller
     }
 
     public function edit(PostRequest $request, Post $object) {
+        // dd($request);
         $data = $request->validated();
+        $slug = Str::slug($data['title'], '-');
+        $data['slug'] = $slug;
         if(isset($data["categories"])){
             $categories = $data["categories"];
             unset($data["categories"]);

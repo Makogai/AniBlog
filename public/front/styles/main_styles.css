@@ -873,7 +873,10 @@ section
 
 .page_content
 {
-	background: #f7f7f7;
+	/* background: #f7f7f7; */
+    background-image: url('mainbg.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .blog_section
 {
@@ -1160,6 +1163,22 @@ section
 .card_default_with_background
 {
 	width: 263px;
+}
+.card-image{
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.post-card{
+    background: #ffffff;
+
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    transition: 0.3s ease all;
+}
+.post-card:hover{
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 20%);
 }
 .card_small_with_image .card-body
 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FeaturedPosts;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
@@ -25,12 +26,25 @@ class HomeController extends Controller
     public function index()
     {
         $featured = FeaturedPosts::with('post')->get();
+        $latest = Post::latest()->with('categories')->take(4)->get();
 
         $data = [
             "featured" => $featured,
+            "latest" => $latest,
         ];
 
 
         return view('main.index')->with($data);
+    }
+    public function post($id)
+    {
+        $post = Post::find($id)->get();
+
+        $data = [
+            "post" => $post,
+        ];
+
+
+        return view('main.post')->with($data);
     }
 }
