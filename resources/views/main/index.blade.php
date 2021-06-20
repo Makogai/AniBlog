@@ -26,10 +26,10 @@
                                             @endforeach
                                             @endisset
                                     <div class="home_slider_item_title">
-                                        <a href="{{Route('post',[$post->post->id,$post->post->slug])}}">{{$post->post->title}}</a>
+                                        <a href="post/{{$post->post->id}}/{{$post->post->slug}}">{{$post->post->title}}</a>
                                     </div>
                                     <div class="home_slider_item_link">
-                                        <a href="{{Route('post',$post->post->slug)}}" class="trans_200">Continue Reading
+                                        <a href="post/{{$post->post->id}}/{{$post->post->slug}}" class="trans_200">Continue Reading
                                             <svg version="1.1" id="link_arrow_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  width="19px" height="13px" viewBox="0 0 19 13" enable-background="new 0 0 19 13" xml:space="preserve">
                                                 <polygon fill="#FFFFFF" points="12.475,0 11.061,0 17.081,6.021 0,6.021 0,7.021 17.038,7.021 11.06,13 12.474,13 18.974,6.5 "/>
@@ -51,7 +51,7 @@
                             <!-- Similar Post -->
                             <div class="col-lg-3 col-md-6 similar_post_col">
                                 <div class="similar_post trans_200">
-                                    <a href="{{Route('post',[$post->post->id,$post->post->slug])}}">{{$item->post->title}}</a>
+                                    <a href="post/{{$item->post->id}}/{{$item->post->slug}}">{{$item->post->title}}</a>
                                 </div>
                             </div>
 
@@ -92,7 +92,7 @@
     </div>
 </div>
 
-<div class="page_content">
+<div class="page_content mb-5">
     <div class="container mb-5">
         <div class="row row-lg-eq-height">
 
@@ -132,10 +132,10 @@
                                     @foreach ($latest as $item)
                                     <div class="col-lg-6 col-12 mt-3">
                                         <div class="post-card">
-                                            <div class="card-image w-100" style="background-image: url({{$item->post_image}})"></div>
+                                            <div class="card-image w-100" style="background-image: url({{$item->post_image}}); background-position:center;"></div>
                                             {{-- <div class="card-img-top" style="height: 300px; overflow:hidden;" src="{{$item->post_image}}"> --}}
                                             <div class="card-body">
-                                                <div class="card-title"><a href="post.html">{{$item->title}}</a></div>
+                                                <div class="card-title"><a href="post/{{$item->id}}/{{$item->slug}}">{{$item->title}}</a></div>
                                                 <p class="card-text">{{$item->short_content}}...</p>
                                                 <small class="post_meta w-100 d-inline-block">
                                                     <a href="#">{{$item->user->name}}</a>
@@ -1139,5 +1139,5 @@
 
 
 </div>
-@include('layouts.main.footer')
+
 @endsection

@@ -6,6 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeaturedPostsController;
+use App\Http\Controllers\FooterController;
+use App\Http\Controllers\FooterIconController;
 use App\Models\FeaturedPosts;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('post/{post:slug}', [App\Http\Controllers\HomeController::class, 'post'])->name('post');
+Route::get('post/{id}/{slug}', [App\Http\Controllers\HomeController::class, 'post'])->name('post');
 
 
 
@@ -74,6 +76,20 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin/'], function () {
     Route::delete('/posts-featured/delete/{id}', [FeaturedPostsController::class,'destroy'])->name('admin/posts-featured/delete');
     Route::post('/posts-featured/store', [FeaturedPostsController::class,'store'])->name('admin/posts-featured/store');
     Route::post('/posts-featured/{object}/edit', [FeaturedPostsController::class,'edit'])->name('admin/posts-featured/edit');
+
+    //Footer
+    Route::get('/footer', [FooterController::class,'index'])->name('admin/footer');
+    Route::get('footer/{id}', [FooterController::class,'getOne'])->name('admin/footer/fetch');
+    Route::delete('footer/delete/{id}', [FooterController::class,'destroy'])->name('admin/footer/delete');
+    Route::post('footer/store', [FooterController::class,'store'])->name('admin/footer/store');
+    Route::post('footer/{object}/edit', [FooterController::class,'edit'])->name('admin/footer/edit');
+
+    //FooterIcon
+    Route::get('/footer-icon', [FooterIconController::class,'index'])->name('admin/footer-icon');
+    Route::get('footer-icon/{id}', [FooterIconController::class,'getOne'])->name('admin/footer-icon/fetch');
+    Route::delete('foote-iconr/delete/{id}', [FooterIconController::class,'destroy'])->name('admin/footer-icon/delete');
+    Route::post('footer-icon/store', [FooterIconController::class,'store'])->name('admin/footer-icon/store');
+    Route::post('footer-icon/{object}/edit', [FooterIconController::class,'edit'])->name('admin/footer-icon/edit');
 
 
 

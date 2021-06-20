@@ -69,6 +69,14 @@ background: linear-gradient(90deg, rgba(0,131,226,1) 0%, rgba(1,169,156,1) 100%)
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route("admin/footer") }}" class="nav-link {{strpos(Route::current()->getName(), 'footer' ) !== false ? "active" : ""}}">
+              <i class="nav-icon fas fa-shoe-prints"></i>
+              <p>
+               Footer
+              </p>
+            </a>
+          </li>
 
 
         </ul>
