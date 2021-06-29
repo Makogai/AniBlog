@@ -40,10 +40,11 @@ class PostRequest extends FormRequest
 
             'title' => 'required|max:100',
             // 'email' => 'required|email|unique',
-            'post_image' => 'nullable|max:5000|mimes:jpeg,png,jpg,gif,svg',
+            'post_image' => 'required|max:5000|mimes:jpeg,png,jpg,gif,svg',
             'content' => 'required|max:10000',
             'short_content' => 'required|max:200',
-            'categories' => 'nullable|array'
+            'categories' => 'nullable|array',
+            'post_image' => $this->isMethod('POST') ? 'required' : ''
         ];
     }
 

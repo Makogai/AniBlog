@@ -1,11 +1,7 @@
 @extends('layouts.admin')
+@section('header', 'Deleted Posts')
 
 @section('content')
-
-<div class="modal-header">
-    <h4 class="modal-title">Posts</h4>
-</div>
-
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div class="container-fluid ">
@@ -22,11 +18,7 @@
                                 <div class="col-6">
                                     <h5 class="card-title mt-1 mb-1">Posts table</h5>
                                 </div>
-                                <div class="col-6">
-                                    <a id="add" class="btn btn-sm btn-info float-right ml-3" href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
-                                        Add post
-                                    </a>
-                                </div>
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -46,8 +38,14 @@
                                     @foreach($objects as $object)
                                         <tr>
                                             <td class="text-center">{{ $object->title }}</td>
-                                            <td class="text-center">{{ $object->content }}</td>
-                                            <td class="text-center">{{ $object->category->name }}</td>
+                                            <td class="text-center">{{ $object->short_content }}</td>
+                                            <td class="text-center">
+                                                @isset($object->categories)
+                                                @foreach($object->categories as $category)
+                                                   {{ ($category->category) ? $category->category->name : '' }} <i class="fas fa-square" style="color: {{$category->category->color}};"></i> <br>
+                                                @endforeach
+                                            @endisset
+                                            </td>
                                             <td class="text-center">
                                                 <img class="rounded" src="{{ $object->post_image}}" width="60">
                                             </td>

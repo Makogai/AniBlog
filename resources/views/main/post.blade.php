@@ -1,12 +1,31 @@
 @extends('layouts.main.index')
 @section('css')
+        <link rel="stylesheet" type="text/css" href="{{asset("front/plugins/OwlCarousel2-2.2.1/owl.carousel.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/plugins/OwlCarousel2-2.2.1/owl.theme.default.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/plugins/OwlCarousel2-2.2.1/animate.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/plugins/jquery.mb.YTPlayer-3.1.12/jquery.mb.YTPlayer.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/styles/main_styles.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/styles/responsive.css")}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/styles/post.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/styles/post_responsive.css') }}">
+
+
 @endsection
 @section('content')
-
+<style>
+iframe{
+    width: 100%!important;
+    height: 100%!important;
+}
+blockquote {
+    background-color: #fff;
+    border-left: .7rem solid #007bff;
+    margin: 1.5em .7rem;
+    padding: .5em .7rem;
+}
+</style>
     <div class="home">
-        <div class="home_background parallax-window" style="background: rgba(0,0,0,0.4);" data-parallax="scroll" data-image-src="{{ $post->post_image }}"
+        <div class="home_background parallax-window" style="background: rgba(0,0,0,0.8);" data-parallax="scroll" data-image-src="{{ $post->post_image }}"
             data-speed="0.8"></div>
         <div class="home_content">
             @foreach ($post->categories as $item)
@@ -17,7 +36,7 @@
             <div class="post_title">{{ $post->title }}</div>
         </div>
     </div>
-    <div class="page_content mb-5">
+    <div class="page_content">
         <div class="container">
             <div class="row row-lg-eq-height">
                 <div class="col-lg-9">
@@ -45,7 +64,7 @@
                         <!-- Post Body -->
 
                         <div class="post_body">
-                            <p class="post_p text-center">{{ $post->title }}</p>
+
                             <figure class="text-center">
                                 <img src="{{ $post->post_image }}" alt="">
                                 <figcaption>{{ $post->title }}</figcaption>
@@ -108,7 +127,7 @@
                             <div class="row mt-4">
                                 <div class="col">
                                     <div class="side_post">
-                                        <a href="post.html">
+                                        <a href="{{Route('post',[$random_post->id,$random_post->slug])}}">
                                             <div
                                                 class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
                                                 <div class="side_post_image">

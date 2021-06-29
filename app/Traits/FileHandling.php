@@ -11,18 +11,24 @@ trait FileHandling {
         if( $file ) {
             //return $request->file($fieldname)->store('images/' . $directory, 'public');
 
-            $destinationPath = 'public/images/' . $directory . '/';
+            // $destinationPath = 'public/images/' . $directory . '/';
+            // $fileName = $file->getClientOriginalName();
+            // $fileName = str_replace(" ", "", $fileName);
+            // $fileName = str_replace("(", "", $fileName);
+            // $fileName = str_replace(")", "", $fileName);
+            // $filenameCover = time() . $fileName;
+            // Storage::putFileAs($destinationPath,$file, $filenameCover);
+            // $url = Storage::url($destinationPath.$filenameCover);
+            // // return $destinationPath . $filenameCover;
+            // return $url;
+            $destinationPath = '/images/' . $directory . '/';
             $fileName = $file->getClientOriginalName();
             $fileName = str_replace(" ", "", $fileName);
             $fileName = str_replace("(", "", $fileName);
             $fileName = str_replace(")", "", $fileName);
             $filenameCover = time() . $fileName;
-            // $file->move(public_path() . $destinationPath, $filenameCover);
-            // Storage::disk('local')->put($filenameCover, $destinationPath);
-            Storage::putFileAs($destinationPath,$file, $filenameCover);
-            $url = Storage::url($destinationPath.$filenameCover);
-            // return $destinationPath . $filenameCover;
-            return $url;
+            $file->move(public_path() . $destinationPath, $filenameCover);
+            return $destinationPath . $filenameCover;
         }
 
         return null;

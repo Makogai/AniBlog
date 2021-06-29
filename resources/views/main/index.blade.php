@@ -1,6 +1,14 @@
 @extends('layouts.main.index')
 
 @section('content')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset("front/plugins/OwlCarousel2-2.2.1/owl.carousel.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/plugins/OwlCarousel2-2.2.1/owl.theme.default.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/plugins/OwlCarousel2-2.2.1/animate.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/plugins/jquery.mb.YTPlayer-3.1.12/jquery.mb.YTPlayer.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/styles/main_styles.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("front/styles/responsive.css")}}">
+@endsection
 <div class="home">
 
     <!-- Home Slider -->
@@ -12,7 +20,7 @@
             <!-- Slider Item -->
             @foreach($featured as $post)
             <div class="owl-item">
-                <div class="home_slider_background" style="background-image:url({{$post->post->post_image}}); filter: blur(8px);
+                <div class="home_slider_background" style="background-image:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url({{$post->post->post_image}}); filter: blur(8px);
                     -webkit-filter: blur(8px);"></div>
                 <div class="home_slider_content_container">
                     <div class="container">
@@ -29,6 +37,7 @@
                                         <a href="post/{{$post->post->id}}/{{$post->post->slug}}">{{$post->post->title}}</a>
                                     </div>
                                     <div class="home_slider_item_link">
+                                    <p class="text-white mb-4">{{$post->post->short_content}}</p>
                                         <a href="post/{{$post->post->id}}/{{$post->post->slug}}" class="trans_200">Continue Reading
                                             <svg version="1.1" id="link_arrow_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  width="19px" height="13px" viewBox="0 0 19 13" enable-background="new 0 0 19 13" xml:space="preserve">
